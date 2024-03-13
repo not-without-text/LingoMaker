@@ -31,7 +31,7 @@ const COLORS = {
 const SUCCESS_AUDIO = new Audio("success.wav");
 const WIN_AUDIO = new Audio("win.mp3");
 
-let puzzle = {cols: 1, blocks: []};
+let puzzle = {cols: 1, rows: 3, blocks: []};
 
 let isEditMode = false;
 function toggleEditMode() {
@@ -54,7 +54,7 @@ function displayPuzzle() {
     while (puzzleDisplay.firstChild)
         puzzleDisplay.removeChild(puzzleDisplay.firstChild);
     let rows = [];
-    for (let y = 0; y < 3; y++) {
+    for (let y = 0; y < puzzle.rows; y++) {
         let blockRow = [];
         let row = document.createElement("tr");
         for (let x = 0; x < puzzle.cols; x++) {
@@ -323,24 +323,51 @@ function removeColRight() {
     }
 }
 
+function addRowTop() {
+    puzzle.rows++;
+    puzzle.blocks.forEach(b => {b.y++;});
+    displayPuzzle();
+}
+
+function addRowBottom() {
+    puzzle.rows++;
+    displayPuzzle();
+}
+
+function removeRowTop() {
+    if (puzzle.rows > 3) {
+        puzzle.rows--;
+        puzzle.blocks.forEach(b => {b.y--;});
+        puzzle.blocks = puzzle.blocks.filter(b => b.y >= 0);
+        displayPuzzle();
+    }
+}
+
+function removeRowBottom() {
+    if (puzzle.rows > 3) {
+        puzzle.rows--;
+        puzzle.blocks = puzzle.blocks.filter(b => b.y < puzzle.rows);
+        displayPuzzle();
+    }
+}
+
 function loadCompressedPuzzle(data) {
     try {
         let arr = new Uint8Array([...atob(data)].map(x => x.charCodeAt(0)));
         let inflated = pako.inflate(arr);
         let output = [...inflated].map(x => String.fromCharCode(x)).join("");
-        let puzzleData = JSON.parse(output);
-        puzzle = {
-            cols: puzzleData[0],
-            blocks: puzzleData.slice(1)
-        };
+        let puzzle = JSON.parse(output);
     } catch (err) {
-        puzzle = {cols: 1, blocks: []};
+        puzzle = {cols: 1, rows: 3, blocks: []};
     }
 }
 
 function compressPuzzle() {
-    let output = [];
-    output.push(puzzle.cols);
+    let output = {
+        cols: puzzle.cols,
+        rows: puzzle.rows,
+        blocks: []
+    };
     for (let block of puzzle.blocks) {
         let outputBlock = {
             clue: block.clue,
@@ -353,7 +380,7 @@ function compressPuzzle() {
             outputBlock.color2 = block.color2;
         }
         if (block.answer) outputBlock.answer = block.answer;
-        output.push(outputBlock);
+        output.blocks.push(outputBlock);
     }
     let base64d = JSON.stringify(output);
     let arr = new Uint8Array([...base64d].map(x => x.charCodeAt(0)));
