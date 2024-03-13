@@ -201,10 +201,11 @@ function displayPuzzle() {
         );
     } else {
         document.querySelectorAll("input.answer").forEach(
-            i => i.addEventListener("keyup", e => {
+            i => i.addEventListener("input", e => {
                 let guess = i.value.toUpperCase();
                 let block = puzzle.blocks[i.getAttribute("index")];
-                if (guess.length > block.answer.length) i.value = "";
+                if (guess.length > block.answer.length)
+                    i.value = i.value.slice(block.answer.length);
                 puzzle.blocks
                     .filter(block2 => block.x === block2.x && block !== block2)
                     .forEach(block2 => {
@@ -221,7 +222,7 @@ function displayPuzzle() {
                         b.input.classList.add("success");
                         if (!wasSuccess)
                             play(SUCCESS_AUDIO);
-                    } else if (guess.length === answer.length) {
+                    } else if (guess.length >= answer.length) {
                         b.input.classList.add("failure");
                     }
                 });
@@ -323,14 +324,18 @@ function removeColRight() {
 }
 
 function loadCompressedPuzzle(data) {
-    let arr = new Uint8Array([...atob(data)].map(x => x.charCodeAt(0)));
-    let inflated = pako.inflate(arr);
-    let output = [...inflated].map(x => String.fromCharCode(x)).join("");
-    let puzzleData = JSON.parse(output);
-    puzzle = {
-        cols: puzzleData[0],
-        blocks: puzzleData.slice(1)
-    };
+    try {
+        let arr = new Uint8Array([...atob(data)].map(x => x.charCodeAt(0)));
+        let inflated = pako.inflate(arr);
+        let output = [...inflated].map(x => String.fromCharCode(x)).join("");
+        let puzzleData = JSON.parse(output);
+        puzzle = {
+            cols: puzzleData[0],
+            blocks: puzzleData.slice(1)
+        };
+    } catch (err) {
+        puzzle = {cols: 1, blocks: []};
+    }
 }
 
 function compressPuzzle() {
