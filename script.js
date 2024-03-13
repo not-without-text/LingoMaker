@@ -356,7 +356,7 @@ function loadCompressedPuzzle(data) {
         let arr = new Uint8Array([...atob(data)].map(x => x.charCodeAt(0)));
         let inflated = pako.inflate(arr);
         let output = [...inflated].map(x => String.fromCharCode(x)).join("");
-        let puzzle = JSON.parse(output);
+        puzzle = JSON.parse(output);
     } catch (err) {
         puzzle = {cols: 1, rows: 3, blocks: []};
     }
