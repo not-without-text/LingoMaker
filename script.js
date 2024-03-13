@@ -10,6 +10,7 @@ const COLORS = {
     brown: "#774d2b",
     mint: "#7fffc5",
     magenta: "#ff00dc",
+    lime: "#00ff21",
     gray: "#a0a0a0",
     cream: "#f7e4b6",
     lavender: "#a288dc",
@@ -127,7 +128,7 @@ function displayPuzzle() {
                 let input = document.createElement("input");
                 block.input = input;
                 input.classList.add("answer");
-                input.placeholder = block.answer.replaceAll(/[a-zA-Z0-9]/g, "-");
+                input.placeholder = block.answers.split("`")[0].replaceAll(/[a-zA-Z0-9]/g, "-");
                 blockCell.appendChild(input);
                 input.setAttribute("index", i);
             }
@@ -239,7 +240,7 @@ function displayPuzzle() {
                         b.input.classList.add("success");
                         if (!wasSuccess)
                             play(SUCCESS_AUDIO);
-                    } else if (guess.length >= answers.split("`")[0].length) {
+                    } else if (guess.length >= answers[0].length) {
                         b.input.classList.add("failure");
                     }
                 });
