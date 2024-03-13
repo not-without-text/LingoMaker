@@ -26,6 +26,7 @@ const COLORS = {
     salmon: "#ffc3c3",
     silver: "#bec2cb",
     "tea green": "#77dd77",
+    avocado: "#0d363a",
     none: "#444"
 };
 const SUCCESS_AUDIO = new Audio("success.wav");
@@ -387,3 +388,19 @@ function compressPuzzle() {
     return btoa([...pako.deflate(arr)]
                 .map(x => String.fromCharCode(x)).join(""));
 }
+
+document.addEventListener("mousemove", e => {
+    let hovered = document.querySelector("td.block:hover");
+    let hoveredColor;
+    if (hovered) {
+        let block = puzzle.blocks[hovered.getAttribute("index")];
+        if (block.color) {
+            hoveredColor = block.color.replaceAll(/\b([a-z])/g, (_, x) => x.toUpperCase());
+        } else {
+            hoveredColor = "Checkered - " + block.color1.replaceAll(/\b([a-z])/g, (_, x) => x.toUpperCase()) + " and " + block.color2.replaceAll(/\b([a-z])/g, (_, x) => x.toUpperCase());
+        }
+    } else {
+        hoveredColor = "No color";
+    }
+    document.getElementById("hovered").innerText = hoveredColor;
+});
