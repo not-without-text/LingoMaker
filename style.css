@@ -1,0 +1,152 @@
+@font-face {
+    font-family: Lingo;
+    src: url("Lingo.ttf");
+}
+
+body {
+    background-color: #444;
+    color: #fff;
+    font-family: Lingo, Verdana;
+}
+
+button {
+    font-family: Lingo, Verdana;
+    background-color: #0088ff;
+    border: 3px solid #0044cc;
+    border-radius: 10px;
+}
+
+.block {
+    border: 6px solid;
+    border-color: var(--color);
+    border-image: var(--color) 30;
+    text-align: center;
+    line-height: 50px;
+    background-color: #333;
+    position: relative;
+}
+
+.block.checkered {
+    border-color: transparent;
+    border-image: initial;
+}
+
+.checker {
+    width: 0;
+    height: 0;
+    display: block;
+}
+
+.checker::after {
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    content: "";
+}
+
+.checker0::after, .checker2::after {
+    background-color: var(--color1);
+    background-image: var(--color1);
+}
+
+.checker1::after, .checker3::after {
+    background-color: var(--color2);
+    background-image: var(--color2);
+}
+
+.checker0::after, .checker3::after {left: -6px;}
+.checker1::after, .checker2::after {right: -6px;}
+.checker0::after, .checker1::after {top: -6px;}
+.checker2::after, .checker3::after {bottom: -6px;}
+
+.checker0::after {
+    clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        100% 6px,
+        6px 6px,
+        6px 100%,
+        0% 100%
+    );
+}
+.checker1::after {
+    clip-path: polygon(
+        100% 0%,
+        0% 0%,
+        0% 6px,
+        calc(100% - 6px) 6px,
+        calc(100% - 6px) 100%,
+        100% 100%
+    );
+}
+.checker2::after {
+    clip-path: polygon(
+        100% 100%,
+        0% 100%,
+        0% calc(100% - 6px),
+        calc(100% - 6px) calc(100% - 6px),
+        calc(100% - 6px) 0%,
+        100% 0%
+    );
+}
+.checker3::after {
+    clip-path: polygon(
+        0% 100%,
+        100% 100%,
+        100% calc(100% - 6px),
+        6px calc(100% - 6px),
+        6px 0%,
+        0% 0%
+    );
+}
+
+.block input {
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    display: block;
+    text-transform: uppercase;
+    font-family: Lingo, Verdana;
+}
+
+.no-block {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 6px solid transparent;
+}
+
+.no-block:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "\d7";
+    font-size: 50px; 
+    color: #888;
+    line-height: 100px;
+    text-align: center;
+}
+
+#puzzle > tr > td {
+    width: 100px;
+    height: 100px;
+}
+
+#puzzle {
+    border-spacing: 0;
+    border: 3px solid transparent;
+}
+
+#puzzle.win {
+    border: 3px solid #fc0;
+}
+
+.success {
+    color: #00cc00;
+}
+
+.failure {
+    color: #cc0000;
+}

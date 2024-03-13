@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Lingo Maker</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body onload="setup()">
+        <h1>Lingo Maker</h1>
+        <h2>Made by KinuTheDragon</h2>
+        Editing controls: Click to add or set color, right-click to remove<br/>
+        <button id="linkBtn" onclick="navigator.clipboard.writeText(this.getAttribute('url'))">Copy puzzle link</button><br/>
+        <button id="editToggle" onclick="toggleEditMode()">Edit</button>
+        <button class="editBtn" onclick="addColLeft()">Add column left</button>
+        <button class="editBtn" onclick="addColRight()">Add column right</button>
+        <button class="editBtn" onclick="removeColLeft()">Remove column left</button>
+        <button class="editBtn" onclick="removeColRight()">Remove column right</button><br/>
+        <select class="editBtn" id="namedColors">
+            <option value="$HEX">Hex color</option>
+        </select>
+        <input type="color" id="hexColor1" class="editBtn"></input><br/>
+        <select class="editBtn" id="namedColors2">
+            <option value="$HEX">Hex color</option>
+        </select>
+        <input type="color" id="hexColor2" class="editBtn"></input><br/>
+        <label for="checker">Checkered:</label>
+        <input class="editBtn" type="checkbox" id="checker" onclick="updateDisabled()"></input>
+        <button class="editBtn" id="swap" onclick="swapColors()">Swap colors</button>
+        <table id="puzzle">
+        </table>
+        <script src="pako.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
