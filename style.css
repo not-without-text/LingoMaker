@@ -136,11 +136,13 @@ button {
 #puzzle > tr > td {
     width: 100px;
     height: 100px;
+    min-width: 100px;
 }
 
 #puzzle {
     border-spacing: 0;
     border: 3px solid transparent;
+    overflow-x: scroll;
 }
 
 #puzzle.win {

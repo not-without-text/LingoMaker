@@ -11,7 +11,6 @@
         <h1>Lingo Maker</h1>
         <h2>Made by KinuTheDragon</h2>
         Editing controls: Click to add or set color, right-click to remove<br/>
-        Hovered color: <span id="hovered">No block</span><br/>
         <button id="linkBtn" onclick="navigator.clipboard.writeText(this.getAttribute('url'))">Copy puzzle link</button>
         <button id="editToggle" onclick="toggleEditMode()">Edit</button><br/>
         <button class="editBtn" onclick="addColLeft()">Add column left</button>
@@ -32,9 +31,12 @@
         <input type="color" id="hexColor2" class="editBtn"></input><br/>
         <label for="checker">Checkered:</label>
         <input class="editBtn" type="checkbox" id="checker" onclick="updateDisabled()"></input>
-        <button class="editBtn" id="swap" onclick="swapColors()">Swap colors</button>
-        <table id="puzzle">
-        </table>
+        <button class="editBtn" id="swap" onclick="swapColors()">Swap colors</button><br/>
+        <h1 id="title">Puzzle</h1>
+        Hovered color: <span id="hovered">No block</span>
+        <div style="overflow-x:auto">
+            <table id="puzzle"></table>
+        </div>
         <script src="pako.js"></script>
         <script src="script.js"></script>
     </body>

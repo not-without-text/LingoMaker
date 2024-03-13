@@ -32,7 +32,7 @@ const COLORS = {
 const SUCCESS_AUDIO = new Audio("success.wav");
 const WIN_AUDIO = new Audio("win.mp3");
 
-let puzzle = {cols: 1, rows: 3, blocks: []};
+let puzzle = {cols: 1, rows: 3, title: "Puzzle", blocks: []};
 
 let isEditMode = false;
 function toggleEditMode() {
@@ -50,6 +50,21 @@ function play(audio) {
 }
 
 function displayPuzzle() {
+    if (isEditMode) {
+        let title = document.getElementById("title");
+        title.removeChild(title.firstChild);
+        let titleInput = document.createElement("input");
+        titleInput.placeholder = "Title";
+        titleInput.value = puzzle.title || "Puzzle";
+        titleInput.addEventListener("input", e => {
+            puzzle.title = titleInput.value || "Puzzle";
+        });
+        title.appendChild(titleInput);
+    } else {
+        let title = document.getElementById("title");
+        title.removeChild(title.firstChild);
+        title.appendChild(document.createTextNode(puzzle.title || "Puzzle"));
+    }
     let puzzleDisplay = document.getElementById("puzzle");
     puzzleDisplay.classList.remove("win");
     while (puzzleDisplay.firstChild)
@@ -360,7 +375,7 @@ function loadCompressedPuzzle(data) {
         let output = [...inflated].map(x => String.fromCharCode(x)).join("");
         puzzle = JSON.parse(output);
     } catch (err) {
-        puzzle = {cols: 1, rows: 3, blocks: []};
+        puzzle = {cols: 1, rows: 3, title: "Puzzle", blocks: []};
     }
 }
 
@@ -368,7 +383,8 @@ function compressPuzzle() {
     let output = {
         cols: puzzle.cols,
         rows: puzzle.rows,
-        blocks: []
+        blocks: [],
+        title: puzzle.title
     };
     for (let block of puzzle.blocks) {
         let outputBlock = {
