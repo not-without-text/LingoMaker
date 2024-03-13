@@ -26,6 +26,10 @@ button {
     position: relative;
 }
 
+.block.no-panel {
+    background-color: var(--color);
+}
+
 .block.checkered {
     border-color: transparent;
     border-image: initial;
@@ -59,7 +63,7 @@ button {
 .checker0::after, .checker1::after {top: -6px;}
 .checker2::after, .checker3::after {bottom: -6px;}
 
-.checker0::after {
+.block:not(.no-panel) .checker0::after {
     clip-path: polygon(
         0% 0%,
         100% 0%,
@@ -69,7 +73,7 @@ button {
         0% 100%
     );
 }
-.checker1::after {
+.block:not(.no-panel) .checker1::after {
     clip-path: polygon(
         100% 0%,
         0% 0%,
@@ -79,7 +83,7 @@ button {
         100% 100%
     );
 }
-.checker2::after {
+.block:not(.no-panel) .checker2::after {
     clip-path: polygon(
         100% 100%,
         0% 100%,
@@ -89,7 +93,7 @@ button {
         100% 0%
     );
 }
-.checker3::after {
+.block:not(.no-panel) .checker3::after {
     clip-path: polygon(
         0% 100%,
         100% 100%,

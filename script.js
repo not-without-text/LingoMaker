@@ -106,6 +106,7 @@ function displayPuzzle() {
             blockCell.appendChild(
                 document.createTextNode(block.clue.toUpperCase())
             );
+            if (!block.clue) blockCell.classList.add("no-panel");
             if (block.answer) {
                 blockCell.appendChild(document.createElement("br"));
                 let input = document.createElement("input");
