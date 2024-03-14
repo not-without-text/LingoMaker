@@ -128,7 +128,7 @@ function displayPuzzle() {
                 let input = document.createElement("input");
                 block.input = input;
                 input.classList.add("answer");
-                input.placeholder = block.answers.split("`")[0].replaceAll(/[a-zA-Z0-9]/g, "-");
+                input.placeholder = block.answer.split("`")[0].replaceAll(/[a-zA-Z0-9]/g, "-");
                 blockCell.appendChild(input);
                 input.setAttribute("index", i);
             }
