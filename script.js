@@ -1,4 +1,3 @@
-
 const COLORS = {
     white: "#e6e7e8",
     black: "#000000",
