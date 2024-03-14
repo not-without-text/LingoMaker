@@ -224,7 +224,7 @@ function displayPuzzle() {
                 let guess = i.value.toUpperCase();
                 let block = puzzle.blocks[i.getAttribute("index")];
                 if (guess.length > block.answer.split("`")[0].length)
-                    i.value = i.value.slice(block.answer.length);
+                    i.value = i.value.slice(block.answer.split("`")[0].length);
                 puzzle.blocks
                     .filter(block2 => block.x === block2.x && block !== block2)
                     .forEach(block2 => {
